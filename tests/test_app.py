@@ -15,7 +15,6 @@ def app():
 def client(app):
     return app.test_client()
 
-
 @pytest.fixture()
 def runner(app):
     return app.test_cli_runner()
@@ -28,7 +27,7 @@ def test_get_pokemon(client, requests_mock):
 
     response = client.get("pokemon/ditto")
 
-    expected_return = {
+    assert response.json == {
         "name": "ditto",
         "abilities": ["limber","imposter"],
         "height": 3,
@@ -41,8 +40,6 @@ def test_get_pokemon(client, requests_mock):
         "isLegendary": False,
         "isMythical": False
     }
-
-    assert response.json == expected_return
 
 def test_get_pokemon_translated(client, requests_mock):
     pokemon_ditto = open(os.path.join('tests', 'pokemon_ditto.json')).read()
