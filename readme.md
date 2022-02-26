@@ -50,3 +50,10 @@ Both endpoints return:
     $ python app.py
     ```
 - API endpoint available at http://localhost:5000
+
+## To get to production
+
+- Better error handling should be in place. Currently exceptions return Error 500.
+- Production WSGI needs to be setup. Currently uses flask development server.
+- Async should be added to external calls. External calls are currently made synchronously
+ 

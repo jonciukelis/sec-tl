@@ -50,14 +50,16 @@ def test_get_pokemon_translated(client, requests_mock):
     requests_mock.get('https://pokeapi.co/api/v2/pokemon/ditto', text=pokemon_ditto)
     requests_mock.get('https://pokeapi.co/api/v2/pokemon-species/ditto', text=pokemon_species_ditto)
     
-    pokemon_description = "Capable of copying an foe's genetic code to instantly transform itself into a duplicate of the foe."
-    shakespeare = requests_mock.post('https://api.funtranslations.com/translate/shakespeare', text=pokemon_description)
+    ditto_shakespeare_response_string = open(os.path.join('tests', 'ditto_shakespeare.json')).read()
+    shakespeare_mock = requests_mock.post('https://api.funtranslations.com/translate/shakespeare', text=ditto_shakespeare_response_string)
+
+    ditto_shakespeare_parsed = json.loads(ditto_shakespeare_response_string)['contents']
+    ditto_shakespeare_input = ditto_shakespeare_parsed['text']
+    ditto_shakespeare_output = ditto_shakespeare_parsed['translated']
 
     response = client.get("pokemon/translated/ditto")
-
-    assert shakespeare.last_request.json() == {"text": pokemon_description}
-
-    expected_return = {
+    assert shakespeare_mock.request_history[0].json()['text'] == ditto_shakespeare_input
+    assert response.json == {
         "name": "ditto",
         "abilities": ["limber","imposter"],
         "height": 3,
@@ -65,9 +67,8 @@ def test_get_pokemon_translated(client, requests_mock):
         "types": ["normal"],
         "base_happiness": 50,
         "color": "purple",
-        "description": "Capable of copying an foe's genetic code to instantly transform itself into a duplicate of the foe.",
+        "description": ditto_shakespeare_output,
         "habitat": "urban",
         "isLegendary": False,
         "isMythical": False
     }
-    assert response.json == expected_return
