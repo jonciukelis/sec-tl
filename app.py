@@ -1,6 +1,7 @@
-from flask import Flask, json, Response
+from flask import Flask, Response
 from pokeapi import PokeAPI
 from funtranslations import FunTranslations
+
 
 def create_app() -> Flask:
     """Create a configured Flash app instance."""
@@ -18,7 +19,7 @@ def create_app() -> Flask:
     def get_pokemon(pokemon_name) -> Response:
         summary = app.config['POKEAPI'].get_summary(pokemon_name)
         return summary
-        
+
     return app
 
 

@@ -1,5 +1,6 @@
 import requests
 
+
 class PokeAPI():
     def __init__(self, uri):
         self.uri = uri
@@ -7,7 +8,7 @@ class PokeAPI():
     def get_summary(self, pokemon):
         pokemon_details = self.__get_pokemon_details(pokemon)
         pokemon_species_details = self.__get_pokemon_species_details(pokemon)
-        return {**pokemon_details, **pokemon_species_details} # Merge responses
+        return {**pokemon_details, **pokemon_species_details}  # Merge responses
 
     def __get_pokemon_details(self, pokemon):
         url = self.uri + 'pokemon/' + pokemon
@@ -55,10 +56,13 @@ class PokeAPI():
 
         return pokemon_species_details
 
+
 def _get_json_from_url(url):
     resp = requests.get(url)
 
     if resp.status_code != requests.codes.ok:
-        raise requests.HTTPError('PokeAPI API call to {} returned error {}'.format(url, resp.status_code))
+        raise requests.HTTPError(
+            'PokeAPI API call to {} returned error {}'.format(url, resp.status_code)
+        )
 
     return resp.json()

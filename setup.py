@@ -11,6 +11,7 @@ setup(
         'test': [
             'pytest',
             'coverage',
+            'flake8',
             'requests-mock',
         ],
     },

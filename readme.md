@@ -51,6 +51,30 @@ Both endpoints return:
     ```
 - API endpoint available at http://localhost:5000
 
+## Development
+
+To do any kind of development work development prerequisites need to be installed. The following are some useful commands:
+
+- Test app:
+    ```
+    $ pytest
+    ```
+- Test app and generate coverage:
+    ```
+    $ coverage run -m pytest
+    ```
+- View coverage:
+    ```
+    $ coverage report
+    ```
+- View coverage html:
+    ```
+    $ coverage html
+    ```
+- Lint:
+    ```
+    $ flake8
+    ```
 ## To get to production
 
 - Better error handling should be in place. Currently, exceptions return Error 500.
