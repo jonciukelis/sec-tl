@@ -1,5 +1,4 @@
 import pytest
-import requests
 import requests_mock
 import json
 import os.path
@@ -14,10 +13,6 @@ def app():
 @pytest.fixture()
 def client(app):
     return app.test_client()
-
-@pytest.fixture()
-def runner(app):
-    return app.test_cli_runner()
 
 def test_get_pokemon(client, requests_mock):
     pokemon_ditto = open(os.path.join('tests', 'pokemon_ditto.json')).read()

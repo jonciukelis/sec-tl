@@ -2,3 +2,4 @@
 .idea
 software_engineering_challenge_package.egg-info
 *__pycache__
+.coverage
